@@ -1,4 +1,5 @@
 ﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
 using FactoryPattern.Factory;
 using FactoryPattern.Interfaces;
@@ -9,17 +10,12 @@ namespace FactoryPattern
     {
         static void Main(string[] args)
         {
-            var pilsen = BeerFactory.CreateBeer<IPilsen>();
-            var weiss = BeerFactory.CreateBeer<IWeiss>();
-            var stout = BeerFactory.CreateBeer<IStout>();
-
             var beers = new List<IBeer>();
-            beers.Add((IBeer)pilsen);
-            beers.Add((IBeer)weiss);
-            beers.Add((IBeer)stout);
+            beers.Add((IBeer)BeerFactory.CreateBeer<IPilsen>());
+            beers.Add((IBeer)BeerFactory.CreateBeer<IWeiss>());
+            beers.Add((IBeer)BeerFactory.CreateBeer<IStout>());
 
-            foreach (var beer in beers)
-                beer.Classificacao();
+            beers.Foreach(x => x.Classificacao());
 
             Console.ReadLine();
         }
